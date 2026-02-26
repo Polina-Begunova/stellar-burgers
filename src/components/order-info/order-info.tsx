@@ -10,10 +10,6 @@ export const OrderInfo: FC = () => {
   const { orders } = useSelector((state) => state.feed);
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
-  console.log('OrderInfo: number =', number);
-  console.log('OrderInfo: orders =', orders);
-  console.log('OrderInfo: ingredients =', ingredients);
-
   const orderData = orders.find((item: any) => item.number === Number(number));
   console.log('OrderInfo: orderData =', orderData);
 
