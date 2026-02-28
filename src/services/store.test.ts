@@ -1,10 +1,8 @@
-import store from './store';
+import { rootReducer } from './store';
 
 describe('rootReducer', () => {
   it('должен возвращать начальное состояние при вызове с undefined', () => {
-    // Получаем состояние store напрямую
-    const state = store.getState();
-
+    const state = rootReducer(undefined, { type: '@@INIT' });
     // Проверяем, что все слайсы существуют
     expect(state).toHaveProperty('ingredients');
     expect(state).toHaveProperty('burgerConstructor');

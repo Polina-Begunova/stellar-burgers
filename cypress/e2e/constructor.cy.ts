@@ -37,6 +37,7 @@ describe('Конструктор бургера', () => {
         'contain',
         'Детали ингредиента'
       );
+      cy.get('[data-testid=modal]').should('contain', 'Краторная булка N-200i');
     });
 
     it('должно закрываться по клику на крестик', () => {
@@ -62,13 +63,13 @@ describe('Конструктор бургера', () => {
       );
 
       // Подставляем моковые токены
-      cy.setCookie('accessToken', 'mock-access-token');
+      (cy as any).setMockCookie('accessToken', 'mock-access-token');
       localStorage.setItem('refreshToken', 'mock-refresh-token');
     });
 
     afterEach(() => {
       // Очищаем токены после теста
-      cy.clearCookie('accessToken');
+      (cy as any).clearMockCookie('accessToken');
       localStorage.removeItem('refreshToken');
     });
 
