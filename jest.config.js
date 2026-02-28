@@ -10,7 +10,8 @@ module.exports = {
     '^@pages$': '<rootDir>/src/pages/index.ts',
     '^@ui$': '<rootDir>/src/components/ui/index.ts',
     '^@utils-types$': '<rootDir>/src/utils/types.ts',
-    '^@zlden/react-developer-burger-ui-components$': '<rootDir>/__mocks__/ui-components.ts'
+    '^@zlden/react-developer-burger-ui-components$':
+      '<rootDir>/__mocks__/ui-components.ts'
   },
   testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
   collectCoverageFrom: [

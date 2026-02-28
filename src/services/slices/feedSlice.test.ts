@@ -1,6 +1,4 @@
-import feedReducer, {
-  getFeeds
-} from './feedSlice';
+import feedReducer, { getFeeds } from './feedSlice';
 import { TOrder } from '@utils-types';
 
 // Определяем начальное состояние для тестов
@@ -28,13 +26,13 @@ describe('feed slice', () => {
   it('должен обрабатывать pending состояние', () => {
     const action = { type: getFeeds.pending.type };
     const state = feedReducer(initialState, action);
-    
+
     expect(state.loading).toBe(true);
     expect(state.error).toBeNull();
   });
 
   it('должен обрабатывать fulfilled состояние', () => {
-    const action = { 
+    const action = {
       type: getFeeds.fulfilled.type,
       payload: {
         orders: mockOrders,
@@ -43,7 +41,7 @@ describe('feed slice', () => {
       }
     };
     const state = feedReducer(initialState, action);
-    
+
     expect(state.loading).toBe(false);
     expect(state.orders).toEqual(mockOrders);
     expect(state.total).toBe(100);
@@ -53,12 +51,12 @@ describe('feed slice', () => {
 
   it('должен обрабатывать rejected состояние', () => {
     const errorMessage = 'Ошибка загрузки';
-    const action = { 
+    const action = {
       type: getFeeds.rejected.type,
       error: { message: errorMessage }
     };
     const state = feedReducer(initialState, action);
-    
+
     expect(state.loading).toBe(false);
     expect(state.error).toBe(errorMessage);
   });

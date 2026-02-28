@@ -53,7 +53,7 @@ describe('burgerConstructor slice', () => {
   it('должен добавлять булку', () => {
     const action = addIngredient(mockBun);
     const newState = burgerConstructorReducer(initialState, action);
-    
+
     expect(newState.bun).toBeDefined();
     expect(newState.bun?.name).toBe('Булка');
     expect(newState.bun?.type).toBe('bun');
@@ -63,7 +63,7 @@ describe('burgerConstructor slice', () => {
   it('должен добавлять начинку', () => {
     const action = addIngredient(mockMain);
     const newState = burgerConstructorReducer(initialState, action);
-    
+
     expect(newState.ingredients).toHaveLength(1);
     expect(newState.ingredients[0].name).toBe('Начинка');
     expect(newState.ingredients[0].id).toBeDefined();
@@ -72,33 +72,45 @@ describe('burgerConstructor slice', () => {
   it('должен удалять ингредиент', () => {
     // Сначала добавляем ингредиент
     const addAction = addIngredient(mockMain);
-    const stateWithIngredient = burgerConstructorReducer(initialState, addAction);
+    const stateWithIngredient = burgerConstructorReducer(
+      initialState,
+      addAction
+    );
     const ingredientId = stateWithIngredient.ingredients[0].id;
-    
+
     // Затем удаляем его
     const removeAction = removeIngredient(ingredientId);
-    const newState = burgerConstructorReducer(stateWithIngredient, removeAction);
-    
+    const newState = burgerConstructorReducer(
+      stateWithIngredient,
+      removeAction
+    );
+
     expect(newState.ingredients).toHaveLength(0);
   });
 
   it('должен перемещать ингредиент вверх', () => {
     // Добавляем первый ингредиент
     const addFirstAction = addIngredient(mockMain);
-    const stateWithFirst = burgerConstructorReducer(initialState, addFirstAction);
-    
+    const stateWithFirst = burgerConstructorReducer(
+      initialState,
+      addFirstAction
+    );
+
     // Добавляем второй ингредиент
     const secondMain = { ...mockMain, _id: '3', name: 'Вторая начинка' };
     const addSecondAction = addIngredient(secondMain);
-    const stateWithTwo = burgerConstructorReducer(stateWithFirst, addSecondAction);
-    
+    const stateWithTwo = burgerConstructorReducer(
+      stateWithFirst,
+      addSecondAction
+    );
+
     expect(stateWithTwo.ingredients[0].name).toBe('Начинка');
     expect(stateWithTwo.ingredients[1].name).toBe('Вторая начинка');
-    
+
     // Перемещаем второй ингредиент вверх
     const moveUpAction = moveIngredientUp(1);
     const newState = burgerConstructorReducer(stateWithTwo, moveUpAction);
-    
+
     expect(newState.ingredients[0].name).toBe('Вторая начинка');
     expect(newState.ingredients[1].name).toBe('Начинка');
   });
@@ -106,17 +118,23 @@ describe('burgerConstructor slice', () => {
   it('должен перемещать ингредиент вниз', () => {
     // Добавляем первый ингредиент
     const addFirstAction = addIngredient(mockMain);
-    const stateWithFirst = burgerConstructorReducer(initialState, addFirstAction);
-    
+    const stateWithFirst = burgerConstructorReducer(
+      initialState,
+      addFirstAction
+    );
+
     // Добавляем второй ингредиент
     const secondMain = { ...mockMain, _id: '3', name: 'Вторая начинка' };
     const addSecondAction = addIngredient(secondMain);
-    const stateWithTwo = burgerConstructorReducer(stateWithFirst, addSecondAction);
-    
+    const stateWithTwo = burgerConstructorReducer(
+      stateWithFirst,
+      addSecondAction
+    );
+
     // Перемещаем первый ингредиент вниз
     const moveDownAction = moveIngredientDown(0);
     const newState = burgerConstructorReducer(stateWithTwo, moveDownAction);
-    
+
     expect(newState.ingredients[0].name).toBe('Вторая начинка');
     expect(newState.ingredients[1].name).toBe('Начинка');
   });
@@ -126,12 +144,15 @@ describe('burgerConstructor slice', () => {
     const addBunAction = addIngredient(mockBun);
     const stateWithBun = burgerConstructorReducer(initialState, addBunAction);
     const addMainAction = addIngredient(mockMain);
-    const stateWithItems = burgerConstructorReducer(stateWithBun, addMainAction);
-    
+    const stateWithItems = burgerConstructorReducer(
+      stateWithBun,
+      addMainAction
+    );
+
     // Очищаем конструктор
     const resetAction = resetConstructor();
     const newState = burgerConstructorReducer(stateWithItems, resetAction);
-    
+
     expect(newState.bun).toBeNull();
     expect(newState.ingredients).toHaveLength(0);
   });
